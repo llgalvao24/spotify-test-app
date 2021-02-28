@@ -1,0 +1,17 @@
+.nav-link {
+  color: var(--white) !important;
+  font-weight: 500;
+}
+
+.navbar {
+  background-color: black !important;
+}
+
+.navbar-brand > img {
+  margin-right: 25px;
+} 
+
+.navbar-light .navbar-brand {
+  color: var(--white) !important;
+  font-weight: 500;
+}

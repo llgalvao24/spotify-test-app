@@ -5,9 +5,10 @@ const NotFoundPage = () => {
   return (
     <>
       <h1>
-        Page not found. Goto <Link to="/dashboard">Home Page</Link>
+        Page not found. Goto <Link to="/home">Home Page</Link>
       </h1>
     </>
   );
 };
+
 export default NotFoundPage;

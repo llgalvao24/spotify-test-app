@@ -48,6 +48,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -55,4 +59,10 @@ a {
   max-width: 992px;
   margin: 0 auto;
   padding: 2.5rem 2rem;
+}
+
+.albums {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
