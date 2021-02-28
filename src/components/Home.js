@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable react/prop-types */
 import "../styles/Home.css";
 import React, { useEffect, useState } from "react";
@@ -11,8 +10,9 @@ import Button from "react-bootstrap/Button";
 import Search from "../components/Search";
 import Result from "../components/Result";
 import Loading from "../components/Loading";
-import { initiateGetResult } from "../configuration/result";
+import { initiateGetResult, initialReleases } from "../actions/result";
 import { get } from "../configuration/api";
+import NewReleases from "./NewReleases";
 
 const Home = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,9 +42,28 @@ const Home = (props) => {
   };
 
   useEffect(() => {
+    const bla = () => {
+      if (isValidSession()) {
+        setIsLoading(true);
+        props.dispatch(initialReleases()).then(() => {
+          setIsLoading(false);
+          setSelectedCategory("artists");
+        });
+      } else {
+        history.push({
+          pathname: "/",
+          state: {
+            session_expired: true,
+          },
+        });
+      }
+    };
+    bla();
+  }, []);
+
+  useEffect(() => {
     get("https://api.spotify.com/v1/me")
       .then((resp) => {
-        console.log(resp);
         setImageUrl(resp.images[0].url);
         setUserName(resp.display_name);
       })
@@ -56,6 +75,7 @@ const Home = (props) => {
   };
 
   const { tracks } = props;
+  const { artists } = props;
   const result = { tracks };
 
   return (
@@ -80,15 +100,16 @@ const Home = (props) => {
                 <Search handleSearch={handleSearch} />
               </Nav>
               <Nav>
-                <Nav.Link href="/my-library" className="mr-5">
+                <Nav.Link href="/my-library" className="mr-5 ml-5">
                   My Library
                 </Nav.Link>
-                <Button type="submit" variant="success" className="ml-5">
+                <Button type="submit" variant="success">
                   Logout
                 </Button>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
+          <NewReleases albums={artists} />
           <Result
             result={result}
             setCategory={setCategory}
@@ -112,7 +133,6 @@ const mapStateToProps = (state) => {
   return {
     tracks: state.tracks,
     artists: state.artists,
-    playlist: state.playlist,
   };
 };
 

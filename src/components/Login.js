@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable react/prop-types */
 import React from "react";
 import "../styles/Login.css";
@@ -24,7 +23,9 @@ const Login = (props) => {
       ) : (
           <>
             {sessionExpired && (
-              <Alert variant="danger" className="text-center">Session expired. Please login again.</Alert>
+              <Alert variant="danger" className="text-center">
+                Session expired. Please login again.
+              </Alert>
             )}
             <div className="login">
               <h2>Welcome to</h2>
@@ -37,7 +38,7 @@ const Login = (props) => {
                 href={`${REACT_APP_AUTHORIZE_URL}?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URL}&response_type=token&show_dialog=true`}
               >
                 LOGIN WITH SPOTIFY
-          </a>
+            </a>
             </div>
           </>
         )}

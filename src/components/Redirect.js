@@ -12,7 +12,8 @@ const RedirectPage = (props) => {
       }
 
       const accessToken = getUrlParamValues(location.hash);
-      const expirationTime = new Date().getTime() + accessToken.expires_in * 10;
+      const expirationTime =
+        new Date().getTime() + accessToken.expires_in * 1000;
       localStorage.setItem("params", JSON.stringify(accessToken));
       localStorage.setItem("expiration_time", expirationTime);
       history.push("/home");

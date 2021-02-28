@@ -15,3 +15,7 @@
   color: var(--white) !important;
   font-weight: 500;
 }
+
+.navbar-light .navbar-toggler-icon {
+  background-color: #218838;
+}

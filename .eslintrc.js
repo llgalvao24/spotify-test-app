@@ -25,6 +25,6 @@ module.exports = {
     "plugin:prettier/recommended", // Make this the last element so prettier config overrides other formatting rules
   ],
   rules: {
-    "prettier/prettier": ["error", {}, { usePrettierrc: false }], // Use our .prettierrc file as source
+    "prettier/prettier": ["warn", {}, { usePrettierrc: false }], // Use our .prettierrc file as source
   },
 };

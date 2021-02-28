@@ -33,7 +33,7 @@ const Search = (props) => {
           placeholder="Search for a song..."
           onChange={handleInputChange}
           autoComplete="off"
-          style={{ width: "600px" }}
+          style={{ width: "330px" }}
         />
       </Form.Group>
     </Form>
