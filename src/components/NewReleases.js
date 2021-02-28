@@ -4,7 +4,6 @@ import Card from "react-bootstrap/Card";
 import _ from "lodash";
 
 const NewReleases = ({ albums }) => {
-  console.log(albums);
   return (
     <>
       {Object.keys(albums).length > 0 && (

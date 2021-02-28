@@ -3,6 +3,8 @@ import {
   ADD_TRACKS,
   SET_ARTISTS,
   ADD_ARTISTS,
+  ADD_SINGLE_TRACK,
+  REMOVE_TRACK,
 } from "../configuration/constants";
 import { get } from "../configuration/api";
 
@@ -14,6 +16,16 @@ export const setTrack = (tracks) => ({
 export const addTrack = (tracks) => ({
   type: ADD_TRACKS,
   tracks,
+});
+
+export const addToList = (track) => ({
+  type: ADD_SINGLE_TRACK,
+  track,
+});
+
+export const removeFromList = (id) => ({
+  type: REMOVE_TRACK,
+  id,
 });
 
 export const setArtists = (artists) => ({
@@ -33,7 +45,6 @@ export const initiateGetResult = (searchTerm) => {
         searchTerm
       )}&type=track`;
       const result = await get(API_URL);
-      console.log(result);
       dispatch(setTrack(result.tracks));
     } catch (error) {
       console.log("error", error);
@@ -47,7 +58,6 @@ export const initialReleases = () => {
       const result = await get(
         "https://api.spotify.com/v1/browse/new-releases?limit=4"
       );
-      console.log(result.albums);
       dispatch(setArtists(result.albums));
     } catch (error) {
       console.log(error, "new releases error");

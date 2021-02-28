@@ -8,19 +8,21 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Search from "../components/Search";
-import Result from "../components/Result";
+import TrackList from "../components/TrackList";
 import Loading from "../components/Loading";
-import { initiateGetResult, initialReleases } from "../actions/result";
+import {
+  initiateGetResult,
+  initialReleases,
+  removeFromList,
+} from "../actions/result";
 import { get } from "../configuration/api";
 import NewReleases from "./NewReleases";
+import { addToList } from "../actions/result";
 
 const Home = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("tracks");
   const [imageUrl, setImageUrl] = useState("");
   const [userName, setUserName] = useState("");
-
-  console.log(selectedCategory);
 
   const { isValidSession, history } = props;
 
@@ -29,7 +31,6 @@ const Home = (props) => {
       setIsLoading(true);
       props.dispatch(initiateGetResult(searchTerm)).then(() => {
         setIsLoading(false);
-        setSelectedCategory("tracks");
       });
     } else {
       history.push({
@@ -41,24 +42,35 @@ const Home = (props) => {
     }
   };
 
+  const onAddClick = (track) => {
+    props.dispatch(addToList(track));
+  };
+
+  const onRemoveClick = (track) => {
+    props.dispatch(removeFromList(track));
+  };
+
+  const logout = () => {
+    localStorage.removeItem("params");
+    localStorage.removeItem("expiration_time");
+    history.push("/");
+    history.go(0);
+  };
+
   useEffect(() => {
-    const bla = () => {
-      if (isValidSession()) {
-        setIsLoading(true);
-        props.dispatch(initialReleases()).then(() => {
-          setIsLoading(false);
-          setSelectedCategory("artists");
-        });
-      } else {
-        history.push({
-          pathname: "/",
-          state: {
-            session_expired: true,
-          },
-        });
-      }
-    };
-    bla();
+    if (isValidSession()) {
+      setIsLoading(true);
+      props.dispatch(initialReleases()).then(() => {
+        setIsLoading(false);
+      });
+    } else {
+      history.push({
+        pathname: "/",
+        state: {
+          session_expired: true,
+        },
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -70,13 +82,7 @@ const Home = (props) => {
       .catch(console.log("some error"));
   }, []);
 
-  const setCategory = (category) => {
-    setSelectedCategory(category);
-  };
-
-  const { tracks } = props;
-  const { artists } = props;
-  const result = { tracks };
+  const { tracks, artists, playlist } = props;
 
   return (
     <>
@@ -103,19 +109,19 @@ const Home = (props) => {
                 <Nav.Link href="/my-library" className="mr-5 ml-5">
                   My Library
                 </Nav.Link>
-                <Button type="submit" variant="success">
+                <Button type="submit" variant="success" onClick={logout}>
                   Logout
                 </Button>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
           <NewReleases albums={artists} />
-          <Result
-            result={result}
-            setCategory={setCategory}
-            selectedCategory={selectedCategory}
-            isValidSession={isValidSession}
-          />
+          <h2>Playlist</h2>
+          {playlist && (
+            <TrackList tracks={playlist} onRemoveClick={onRemoveClick} />
+          )}
+          <h2>Search list</h2>
+          {tracks && <TrackList tracks={tracks} onAddClick={onAddClick} />}
         </>
       ) : (
           <Redirect
@@ -133,6 +139,7 @@ const mapStateToProps = (state) => {
   return {
     tracks: state.tracks,
     artists: state.artists,
+    playlist: state.playlist,
   };
 };
 

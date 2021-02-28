@@ -2,6 +2,7 @@ import { SET_TRACKS, ADD_TRACKS } from "../configuration/constants";
 
 const tracksReducer = (state = {}, action) => {
   const { tracks } = action;
+
   switch (action.type) {
     case SET_TRACKS:
       return tracks;

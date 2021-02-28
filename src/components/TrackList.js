@@ -3,7 +3,9 @@ import React from "react";
 import { Table, Image } from "react-bootstrap";
 import _ from "lodash";
 
-const TrackList = ({ tracks }) => {
+const TrackList = (props) => {
+  const { tracks } = props;
+
   const milisecToMin = (milisecs) => {
     const minutes = Math.floor(milisecs / 60000);
     const seconds = ((milisecs % 60000) / 1000).toFixed(0);
@@ -36,6 +38,20 @@ const TrackList = ({ tracks }) => {
       );
   };
 
+  // eslint-disable-next-line no-unused-vars
+  const removeAddButton = (track) => {
+    return (
+      <>
+        {props.onAddClick ? (
+          <button onClick={() => props.onAddClick(track)}>Add</button>
+        ) : null}
+        {props.onRemoveClick ? (
+          <button onClick={() => props.onRemoveClick(track.id)}>Remove</button>
+        ) : null}
+      </>
+    );
+  };
+
   return (
     <>
       {Object.keys(tracks).length > 0 && (
@@ -50,6 +66,7 @@ const TrackList = ({ tracks }) => {
                   <td className="align-middle">
                     {milisecToMin(track.duration_ms)}
                   </td>
+                  <td className="align-middle">{removeAddButton(track)}</td>
                 </tr>
               );
             })}
