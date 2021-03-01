@@ -14,7 +14,6 @@ const MyLibrary = (props) => {
     props.dispatch(removeFromList(track));
   };
 
-  console.log(playlist);
   return (
     <>
       {isValidSession() ? (
@@ -75,8 +74,6 @@ const MyLibrary = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    tracks: state.tracks,
-    artists: state.artists,
     playlist: state.playlist,
   };
 };

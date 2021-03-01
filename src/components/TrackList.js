@@ -67,9 +67,9 @@ const TrackList = (props) => {
             {tracks.items.map((track, index) => {
               return (
                 <tr key={index}>
-                  {albumArtData(track.album.images)}
+                  {albumArtData(track?.album?.images)}
                   <td className="align-middle">{track.name}</td>
-                  <td className="align-middle">{track.album.name}</td>
+                  <td className="align-middle">{track?.album?.name}</td>
                   <td className="align-middle">
                     {milisecToMin(track.duration_ms)}
                   </td>

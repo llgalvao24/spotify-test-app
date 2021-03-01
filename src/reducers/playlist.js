@@ -2,7 +2,7 @@ import { ADD_SINGLE_TRACK, REMOVE_TRACK } from "../configuration/constants";
 
 const playlistReducer = (state = { items: [] }, action) => {
   const { track } = action;
-  console.log(state);
+
   switch (action.type) {
     case ADD_SINGLE_TRACK:
       // only add once

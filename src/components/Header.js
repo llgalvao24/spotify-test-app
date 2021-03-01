@@ -18,7 +18,7 @@ const Header = (props) => {
         setImageUrl(resp.images[0].url);
         setUserName(resp.display_name);
       })
-      .catch(console.log("some error"));
+      .catch((error) => console.log(error, "user info request error"));
   }, []);
 
   const logout = () => {

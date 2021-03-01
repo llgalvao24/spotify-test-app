@@ -10,7 +10,6 @@ import {
   initialReleases,
   removeFromList,
 } from "../actions/result";
-
 import NewReleases from "./NewReleases";
 import { addToList } from "../actions/result";
 
@@ -59,7 +58,7 @@ const Home = (props) => {
     }
   }, []);
 
-  const { tracks, artists, playlist } = props;
+  const { tracks, releases, playlist } = props;
 
   return (
     <>
@@ -67,7 +66,7 @@ const Home = (props) => {
         <>
           <Loading show={isLoading}>Loading...</Loading>
           <Header handleSearch={handleSearch} history={history} page="home" />
-          <NewReleases albums={artists} />
+          <NewReleases albums={releases} />
           <h2>Playlist</h2>
           {playlist && (
             <TrackList tracks={playlist} onRemoveClick={onRemoveClick} />
@@ -90,7 +89,7 @@ const Home = (props) => {
 const mapStateToProps = (state) => {
   return {
     tracks: state.tracks,
-    artists: state.artists,
+    releases: state.releases,
     playlist: state.playlist,
   };
 };

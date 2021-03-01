@@ -1,9 +1,21 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import Card from "react-bootstrap/Card";
+import { connect } from "react-redux";
+import { Card, Button } from "react-bootstrap";
 import _ from "lodash";
+import { addToList } from "../actions/result";
 
-const NewReleases = ({ albums }) => {
+const NewReleases = (props) => {
+  const { albums } = props;
+
+  const onAddClick = (album) => {
+    const track = {
+      ...album.tracks.items[0],
+      album: { images: album.images, name: album.name },
+    };
+    props.dispatch(addToList(track));
+  };
+
   return (
     <>
       {Object.keys(albums).length > 0 && (
@@ -31,8 +43,11 @@ const NewReleases = ({ albums }) => {
                       />
                     </a>
                     <Card.Body>
-                      <Card.Title>{album.name}</Card.Title>
+                      <Card.Title>{album.tracks.items[0].name}</Card.Title>
                     </Card.Body>
+                    <Button variant="success" onClick={() => onAddClick(album)}>
+                      + Add to playlist
+                    </Button>
                   </Card>
                 </React.Fragment>
               );
@@ -44,4 +59,10 @@ const NewReleases = ({ albums }) => {
   );
 };
 
-export default NewReleases;
+const mapStateToProps = (state) => {
+  return {
+    releases: state.releases,
+  };
+};
+
+export default connect(mapStateToProps)(NewReleases);

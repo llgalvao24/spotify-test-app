@@ -1,8 +1,8 @@
 import {
   SET_TRACKS,
   ADD_TRACKS,
-  SET_ARTISTS,
-  ADD_ARTISTS,
+  SET_RELEASES,
+  ADD_RELEASES,
   ADD_SINGLE_TRACK,
   REMOVE_TRACK,
 } from "../configuration/constants";
@@ -28,14 +28,14 @@ export const removeFromList = (id) => ({
   id,
 });
 
-export const setArtists = (artists) => ({
-  type: SET_ARTISTS,
-  artists,
+export const setReleases = (releases) => ({
+  type: SET_RELEASES,
+  releases,
 });
 
-export const addArtists = (artists) => ({
-  type: ADD_ARTISTS,
-  artists,
+export const addReleases = (releases) => ({
+  type: ADD_RELEASES,
+  releases,
 });
 
 export const initiateGetResult = (searchTerm) => {
@@ -47,7 +47,7 @@ export const initiateGetResult = (searchTerm) => {
       const result = await get(API_URL);
       dispatch(setTrack(result.tracks));
     } catch (error) {
-      console.log("error", error);
+      console.log(error, "search error");
     }
   };
 };
@@ -56,9 +56,16 @@ export const initialReleases = () => {
   return async (dispatch) => {
     try {
       const result = await get(
-        "https://api.spotify.com/v1/browse/new-releases?limit=4"
+        "https://api.spotify.com/v1/browse/new-releases?limit=5"
       );
-      dispatch(setArtists(result.albums));
+      // since new-relases api only returns a simplified album object,
+      // it is necessary to make a new request to obtain tracks
+      const albumsIds = result.albums.items.map((album) => album.id).join(",");
+      const resultAlbums = await get(
+        `https://api.spotify.com/v1/albums?ids=${albumsIds}`
+      );
+
+      dispatch(setReleases({ items: resultAlbums.albums }));
     } catch (error) {
       console.log(error, "new releases error");
     }
