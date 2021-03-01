@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "../styles/Header.css";
 import { Link } from "react-router-dom";
 import { Image, Navbar, Nav, Button } from "react-bootstrap";
@@ -64,6 +64,15 @@ const Header = (props) => {
       </Navbar.Collapse>
     </Navbar>
   );
+};
+
+Header.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired,
+  }).isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
 export default Header;

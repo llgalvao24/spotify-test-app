@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from "react";
+import PropTypes from "prop-types";
 import "../styles/Login.css";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -44,6 +44,13 @@ const Login = (props) => {
         )}
     </>
   );
+};
+
+Login.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape().isRequired,
+  }).isRequired,
+  isValidSession: PropTypes.func.isRequired,
 };
 
 export default connect()(Login);

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import _ from "lodash";
@@ -63,6 +63,11 @@ const mapStateToProps = (state) => {
   return {
     releases: state.releases,
   };
+};
+
+NewReleases.propTypes = {
+  albums: PropTypes.shape().isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(NewReleases);

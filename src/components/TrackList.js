@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from "react";
+import PropTypes from "prop-types";
 import { Table, Image, Button } from "react-bootstrap";
 import _ from "lodash";
 
@@ -82,6 +82,12 @@ const TrackList = (props) => {
       )}
     </>
   );
+};
+
+TrackList.propTypes = {
+  tracks: PropTypes.shape().isRequired,
+  onAddClick: PropTypes.func.isRequired,
+  onRemoveClick: PropTypes.func.isRequired,
 };
 
 export default TrackList;

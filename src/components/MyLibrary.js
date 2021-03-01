@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import _ from "lodash";
@@ -76,6 +76,13 @@ const mapStateToProps = (state) => {
   return {
     playlist: state.playlist,
   };
+};
+
+MyLibrary.propTypes = {
+  playlist: PropTypes.shape().isRequired,
+  history: PropTypes.shape().isRequired,
+  isValidSession: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(MyLibrary);

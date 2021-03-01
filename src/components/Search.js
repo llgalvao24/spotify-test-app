@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 
 const Search = (props) => {
@@ -38,6 +39,10 @@ const Search = (props) => {
       </Form.Group>
     </Form>
   );
+};
+
+Search.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
 };
 
 export default Search;

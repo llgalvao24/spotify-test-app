@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import TrackList from "../components/TrackList";
@@ -92,6 +92,17 @@ const mapStateToProps = (state) => {
     releases: state.releases,
     playlist: state.playlist,
   };
+};
+
+Home.propTypes = {
+  tracks: PropTypes.shape().isRequired,
+  releases: PropTypes.shape().isRequired,
+  playlist: PropTypes.shape().isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  isValidSession: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Home);
