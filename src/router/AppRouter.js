@@ -5,6 +5,7 @@ import Redirect from "../components/Redirect";
 
 import NotFoundPage from "../components/NotFoundPage";
 import Home from "../components/Home";
+import MyLibrary from "../components/MyLibrary";
 
 const AppRouter = () => {
   const [expirationTime, setExpirationTime] = useState("0");
@@ -48,6 +49,12 @@ const AppRouter = () => {
             path="/home"
             render={(props) => (
               <Home isValidSession={isValidSession} {...props} />
+            )}
+          />
+          <Route
+            path="/my-library"
+            render={(props) => (
+              <MyLibrary isValidSession={isValidSession} {...props} />
             )}
           />
           <Route component={NotFoundPage} />
