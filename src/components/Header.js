@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import "../styles/Header.css";
+import { Link } from "react-router-dom";
 import { Image, Navbar, Nav, Button } from "react-bootstrap";
 import { get } from "../configuration/api";
 import Search from "../components/Search";
@@ -28,7 +30,7 @@ const Header = (props) => {
 
   return (
     <Navbar collapseOnSelect expand="lg">
-      <Navbar.Brand href="/home">
+      <Navbar.Brand as={Link} to="/home">
         <Image
           roundedCircle
           alt="user profile"
@@ -49,7 +51,8 @@ const Header = (props) => {
         </Nav>
         <Nav>
           <Nav.Link
-            href={`/${page === "home" ? "my-library" : "home"}`}
+            as={Link}
+            to={`/${page === "home" ? "my-library" : "home"}`}
             className="mr-5 ml-5"
           >
             {page === "home" ? "My Library" : "Search"}

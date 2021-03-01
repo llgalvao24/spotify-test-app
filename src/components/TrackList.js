@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { Table, Image } from "react-bootstrap";
+import { Table, Image, Button } from "react-bootstrap";
 import _ from "lodash";
 
 const TrackList = (props) => {
@@ -43,10 +43,17 @@ const TrackList = (props) => {
     return (
       <>
         {props.onAddClick ? (
-          <button onClick={() => props.onAddClick(track)}>Add</button>
+          <Button variant="success" onClick={() => props.onAddClick(track)}>
+            +
+          </Button>
         ) : null}
         {props.onRemoveClick ? (
-          <button onClick={() => props.onRemoveClick(track.id)}>Remove</button>
+          <Button
+            variant="danger"
+            onClick={() => props.onRemoveClick(track.id)}
+          >
+            -
+          </Button>
         ) : null}
       </>
     );

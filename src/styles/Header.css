@@ -19,3 +19,7 @@
 .navbar-light .navbar-toggler-icon {
   background-color: #218838;
 }
+
+.navbar-nav > h2 {
+  color: var(--white);
+}

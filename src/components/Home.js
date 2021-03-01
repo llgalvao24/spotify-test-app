@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import "../styles/Home.css";
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";

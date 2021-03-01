@@ -20,15 +20,15 @@ const NewReleases = ({ albums }) => {
                       rel="noopener noreferrer"
                       className="card-image-link"
                     >
-                      {!_.isEmpty(album.images) ? (
-                        <Card.Img
-                          variant="top"
-                          src={album.images[0].url}
-                          alt=""
-                        />
-                      ) : (
-                          <img src="https://i.imgur.com/nszu54A.jpg" alt="" />
-                        )}
+                      <Card.Img
+                        variant="top"
+                        src={
+                          !_.isEmpty(album.images)
+                            ? album.images[0].url
+                            : "https://i.imgur.com/nszu54A.jpg"
+                        }
+                        alt=""
+                      />
                     </a>
                     <Card.Body>
                       <Card.Title>{album.name}</Card.Title>
